@@ -25,8 +25,8 @@ public:
 	const Employee& operator [](int index) const {
 		 return *employees[index];
 	 }
-	void showEmpInfo(int index)const;
-	void changeEmpInfo(int index);
+	/*void showEmpInfo(int index)const;
+	void changeEmpInfo(int index);*/
 	Employee* getEmpById(int id);
 	const Employee* getEmpById(int id) const;
 	

@@ -58,46 +58,46 @@ bool Organization::removeEmployeeById(int id)
 	}
 	return false;
 }
-void Organization::showEmpInfo(int index) const
-{
-	for (size_t i = 0; i < employees.size(); i++)
-	{
-		if (employees[i]->getId() == index)
-		{
-			//cout << string(typeid(*employees[i]).name()).substr(6);
-			//cout << endl;
-			employees[i]->info();
-			cout << "salary: " << employees[i]->getSalary()*baseSalary << endl;
-			
-		}
-	}
-}
-void Organization::changeEmpInfo(int index)
-{
-	system("cls");
-	string newName;
-	int newAge;
-	string newSex;
-	int newWorkYear;
-	for (size_t i = 0; i < employees.size(); i++)
-	{
-		if (employees[i]->getId() == index)
-		{
-			cout << "Set new Name: ";
-			cin >> newName;
-			employees[i]->setName(newName);
-			cout << "Set new age: ";
-			cin >> newAge;
-			employees[i]->setAge(newAge);
-			cout << "Set new sex: ";
-			cin >> newSex;
-			employees[i]->setSex(newSex);
-			cout << "Set new work year: ";
-			cin >> newWorkYear;
-			employees[i]->setWorkYears(newWorkYear);			
-		}
-	}
-}
+//void Organization::showEmpInfo(int index) const
+//{
+//	for (size_t i = 0; i < employees.size(); i++)
+//	{
+//		if (employees[i]->getId() == index)
+//		{
+//			//cout << string(typeid(*employees[i]).name()).substr(6);
+//			//cout << endl;
+//			employees[i]->info();
+//			cout << "salary: " << employees[i]->getSalary()*baseSalary << endl;
+//			
+//		}
+//	}
+//}
+//void Organization::changeEmpInfo(int index)
+//{
+//	system("cls");
+//	string newName;
+//	int newAge;
+//	string newSex;
+//	int newWorkYear;
+//	for (size_t i = 0; i < employees.size(); i++)
+//	{
+//		if (employees[i]->getId() == index)
+//		{
+//			cout << "Set new Name: ";
+//			cin >> newName;
+//			employees[i]->setName(newName);
+//			cout << "Set new age: ";
+//			cin >> newAge;
+//			employees[i]->setAge(newAge);
+//			cout << "Set new sex: ";
+//			cin >> newSex;
+//			employees[i]->setSex(newSex);
+//			cout << "Set new work year: ";
+//			cin >> newWorkYear;
+//			employees[i]->setWorkYears(newWorkYear);			
+//		}
+//	}
+//}
 
 Employee * Organization::getEmpById(int id)
 {
@@ -119,10 +119,7 @@ const Employee * Organization::getEmpById(int id) const
 		{
 			return employees[i].get();
 		}
-	}
-
-
-	
+	}	
 	return nullptr;
 }
 
