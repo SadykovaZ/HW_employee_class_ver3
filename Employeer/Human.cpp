@@ -31,5 +31,6 @@ void Human::setSex(string sex)
 
 void Human::info() const
 {
+	
 	cout << "name: " << name << "\nage: " << age << "\nsex: " << sex << endl;
 }

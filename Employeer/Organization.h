@@ -19,10 +19,17 @@ public:
 	double getSalaryFund()const;
 	bool removeEmployeeById(int id);
 	int getCountOfEmployee()const { return employees.size(); }
-	Employee& operator [](int index) {
+	 Employee& operator [](int index)  {
 		return *employees[index];
 	}
+	const Employee& operator [](int index) const {
+		 return *employees[index];
+	 }
 	void showEmpInfo(int index)const;
 	void changeEmpInfo(int index);
+	Employee* getEmpById(int id);
+	const Employee* getEmpById(int id) const;
+	
+
 };
 

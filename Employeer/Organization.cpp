@@ -1,4 +1,5 @@
 #include "Organization.h"
+
 void Organization::setName(string name)
 {
 	this->name = name;
@@ -30,8 +31,8 @@ void Organization::getInfo() const
 {
 	for (size_t i = 0; i < employees.size(); i++)
 	{
-		cout << string(typeid(*employees[i]).name()).substr(6);
-		cout << endl;
+		//cout << string(typeid(*employees[i]).name()).substr(6);
+		//cout << endl;
 		employees[i]->info();
 		cout << "salary: " << employees[i]->getSalary()*baseSalary << endl;
 		cout << "\n-----------------------------\n";
@@ -63,8 +64,8 @@ void Organization::showEmpInfo(int index) const
 	{
 		if (employees[i]->getId() == index)
 		{
-			cout << string(typeid(*employees[i]).name()).substr(6);
-			cout << endl;
+			//cout << string(typeid(*employees[i]).name()).substr(6);
+			//cout << endl;
 			employees[i]->info();
 			cout << "salary: " << employees[i]->getSalary()*baseSalary << endl;
 			
@@ -96,6 +97,33 @@ void Organization::changeEmpInfo(int index)
 			employees[i]->setWorkYears(newWorkYear);			
 		}
 	}
+}
+
+Employee * Organization::getEmpById(int id)
+{
+	for (size_t i = 0; i < employees.size(); i++)
+	{
+		if (employees[i]->getId() == id) 
+		{
+			return employees[i].get();
+		}
+	}
+	return nullptr;
+}
+
+const Employee * Organization::getEmpById(int id) const
+{
+	for (size_t i = 0; i < employees.size(); i++)
+	{
+		if (employees[i]->getId() == id)
+		{
+			return employees[i].get();
+		}
+	}
+
+
+	
+	return nullptr;
 }
 
 

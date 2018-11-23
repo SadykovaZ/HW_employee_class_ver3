@@ -4,8 +4,8 @@
 
 OrganizationConsole::OrganizationConsole()
 	:org("", 0)
-{	
-	startMenu();	
+{
+	//startMenu();
 }
 void OrganizationConsole::start()
 {
@@ -25,7 +25,7 @@ void OrganizationConsole::mainMenu()
 	while (choise != 5)
 	{
 		system("cls");
-		MainM:
+	MainM:
 		cout << "Organization name: " << org.getName();
 		cout << "\nSalary: " << org.getBaseSalary();
 		cout << "\nCount of employee: " << org.getCountOfEmployee();
@@ -33,8 +33,8 @@ void OrganizationConsole::mainMenu()
 		cout << "\
 		1. add new employee\n\
 		2. dismiss employee\n\
-		3. show employee info\n\
-                4. show selected employee info\n\
+		3. show organization info\n\
+                4. show employee info\n\
 		5. exit\n"
 			;
 		cin >> choise;
@@ -51,7 +51,8 @@ void OrganizationConsole::mainMenu()
 			system("pause");
 			break;
 		case 4:
-			for (int i = 0; i < org.getCountOfEmployee(); i++)
+			setEmpInfoMenu();
+			/*for (int i = 0; i < org.getCountOfEmployee(); i++)
 			{
 				cout << setw(3) << left << org[i].getId()
 					<< setw(10) << left << string(typeid(org[i]).name()).substr(6)
@@ -99,7 +100,7 @@ void OrganizationConsole::mainMenu()
 				system("cls");
 				goto MainM;
 			}
-			system("pause");
+			system("pause");*/
 			break;
 		case 5:
 			break;
@@ -187,13 +188,7 @@ void OrganizationConsole::removeEmpMenu()
 	while (1) {
 		system("cls");
 		cout << "Choose Id of employee to remove" << endl;
-		for (int i = 0; i < org.getCountOfEmployee(); i++)
-		{
-			cout << setw(3) << left << org[i].getId()
-				<< setw(10) << left << string(typeid(org[i]).name()).substr(6)
-				<< setw(10) << left << org[i].getName() << endl;
-
-		}
+		showShortInfo();
 		int ch;
 		cin >> ch;
 		if (!org.removeEmployeeById(ch)) {
@@ -226,6 +221,260 @@ void OrganizationConsole::setSalaryMenu()
 	int sal;
 	cin >> sal;
 	org.setBaseSalary(sal);
+}
+
+void OrganizationConsole::setEmpInfoMenu()
+{
+	while (1)
+	{
+		clearScreen();
+		showShortInfo();
+		cout << "0- Go back";
+
+		cout << "Choose employee\'s id: ";
+		int ch;
+		cin >> ch;
+		if (ch == 0) break;
+		Employee *e = org.getEmpById(ch);
+
+		if (e == nullptr)
+		{
+			cout << "incorrectd id\n";
+			pause();
+			continue;
+		}
+
+		editEmpMenu(e);
+		//break;
+	}
+
+}
+
+void OrganizationConsole::showShortInfo() const
+{
+	for (int i = 0; i < org.getCountOfEmployee(); i++)
+	{
+		cout << setw(3) << left << org[i].getId()
+			<< setw(10) << left << string(typeid(org[i]).name()).substr(6)
+			<< setw(10) << left << org[i].getName() << endl;
+
+	}
+}
+
+void OrganizationConsole::editEmpMenu(Employee * emp)
+{
+	while (1)
+	{
+		clearScreen();
+		cout << string(typeid(*emp).name()).substr(6) << endl;
+		emp->info();
+		cout << "1. Change employee info\n";
+		cout << "2. Dismiss employee info\n";
+		cout << "3. Change position\n";
+		cout << "0. Back\n";
+		int ch;
+		cin >> ch;
+
+
+
+		switch (ch)
+		{
+		case 0:
+			return;
+		case 1:
+			editEmpInfo(emp);
+			break;
+		case 2:
+			org.removeEmployeeById(emp->getId());
+			cout << "Employee dissmised!" << endl;
+			pause();
+			return;
+			break;
+		case 3:
+			changePosition(emp);
+			return;
+
+
+		default:
+			cout << "Unknown command";
+			break;
+
+		}
+	}
+
+
+}
+
+void OrganizationConsole::editEmpInfo(Employee * emp)
+{
+
+	while (1)
+	{
+		clearScreen();
+		emp->info();
+		int index = 0;
+		cout << "\nChoose information to change\n ";
+		cout << ++index << ". Name\n";
+		cout << ++index << ". Age\n";
+		cout << ++index << ". Sex\n";
+		cout << ++index << ". Experinece in years\n";
+		int pos;
+		if (typeid(*emp) == typeid(Proger))
+		{
+			pos = 1;
+			cout << ++index << ". count of known languages\n";
+			cout << ++index << ". has education\n";
+		}
+		else if (typeid(*emp) == typeid(Acounter))
+		{
+			pos = 2;
+			cout << ++index << ". 1C experience \n";
+		}
+		else if (typeid(*emp) == typeid(HRManager))
+		{
+			pos = 3;
+			cout << ++index << ". Education \n";
+		}
+		else if (typeid(*emp) == typeid(Janitor))
+		{
+			pos = 4;
+			cout << ++index << ". Works in harmful conditions \n";
+		}
+		cout << "0. go back";
+
+		int ch;
+		cin >> ch;
+		if (ch < 0 || ch > index)
+		{
+			cout << "Unknown command";
+			pause();
+			continue;
+		}
+
+
+		switch (ch)
+		{
+		case 0: return;
+			break;
+		case 1:
+		{
+			string name;
+			cout << "\n Enter new name: ";
+			cin >> name;
+			emp->setName(name);
+
+			break;
+		}
+		case 2:
+		{
+			int age;
+			cout << "\n Enter new age: ";
+			cin >> age;
+			emp->setAge(age);
+
+			break;
+		}
+		case 3:
+
+		{
+			string sex;
+			cout << "\n Enter new sex: ";
+			cin >> sex;
+			emp->setSex(sex);
+
+			break;
+		}
+		case 4:
+		{
+			int exp;
+			cout << "\n Enter new exp: ";
+			cin >> exp;
+			emp->setWorkYears(exp);
+
+			break;
+		}
+		default:
+		{
+			switch (pos)
+			{
+			case 1:
+				if (ch == 5)
+				{
+					cout << "Enter new count of known languages\n";
+					int cnt;
+					cin >> cnt;
+					((Proger*)emp)->setCntLang(cnt);
+				}
+				else
+				{
+					cout << "Eductaion (1-y, 2-0)";
+					bool ed;
+					cin >> ed;
+					((Proger*)emp)->setHasEdu(ed);
+				}
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			default:
+				break;
+			}
+		}
+
+		break;
+		}
+	}
+	pause();
+}
+
+void OrganizationConsole::changePosition(Employee * emp)
+{
+
+	while (1)
+	{
+		clearScreen();
+		cout << "Choose new position of " << emp->getPosition() << " " << emp->getName();
+		cout << "1. Proger\n";
+		cout << "2. Acounter\n";
+		cout << "3. Janitor\n";
+		cout << "4. Direcor\n";
+		cout << "5. HR Manager\n";
+		cout << "0. Go back";
+		int ch;
+		cin >> ch;
+		if (ch < 0 || ch>5)
+		{
+			cout << "Unknown command\n";
+			pause();
+			continue;
+		}
+		Employee *e = nullptr;
+		switch (ch)
+		{
+		case 1:
+			e = new Proger(emp->getName(), emp->getAge(), emp->getSex(), emp->getWorkYears(), 0, 0);
+			break;
+		case 2:
+			e = new Acounter(emp->getName(), emp->getAge(), emp->getSex(), emp->getWorkYears(), 0);
+			break;
+		case 3:
+			e = new Janitor(emp->getName(), emp->getAge(), emp->getSex(), emp->getWorkYears(), 0);
+			break;
+		case 4:
+			e = new Proger(emp->getName(), emp->getAge(), emp->getSex(), emp->getWorkYears(), 0, 0);
+			break;
+		case 5:
+			e = new Proger(emp->getName(), emp->getAge(), emp->getSex(), emp->getWorkYears(), 0, 0);
+			break;
+		}
+		org.addEmployee(e);
+		org.removeEmployeeById(emp->getId());
+		
+		return;
+	}
 }
 
 

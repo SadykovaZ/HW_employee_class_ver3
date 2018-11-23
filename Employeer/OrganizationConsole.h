@@ -26,5 +26,13 @@ private:
 
 	void setOrgNameMenu();
 	void setSalaryMenu();
+	void setEmpInfoMenu();
+	void showShortInfo() const;
+	void clearScreen()const { system("cls"); }
+	void pause()const { system("pause"); }
+	void editEmpMenu(Employee* emp);
+	void editEmpInfo(Employee* emp);
+	void changePosition(Employee* emp);
+
 };
 
