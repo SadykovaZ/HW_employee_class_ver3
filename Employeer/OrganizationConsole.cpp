@@ -61,27 +61,44 @@ void OrganizationConsole::mainMenu()
 			int id;
 			cin >> id;
 			org.showEmpInfo(id);
-			cout << "Want to change information? (1- yes, 2- no): ";
+			cout << "Want to change information or dismiss? (1- yes change info, 2- no just dismiss, 3- no, back to main menu): ";
 			int ch1;
 			cin >> ch1;
-			if (ch1 == 2)
+			if (ch1 == 1)
 			{
-				system("cls");
-				goto MainM;				
+				org.changeEmpInfo(id);
+				cout << endl;
+				cout << "Information changed!" << endl;
+				cout << "----------------------------\n";
+				org.showEmpInfo(id);
+				cout << "Press 1 to return to Main menu: ";
+				int ch2;
+				cin >> ch2;
+				if (ch2 == 1)
+				{
+					system("cls");
+					goto MainM;
+				}
 			}
-			org.changeEmpInfo(id);
-			cout << endl;
-			cout << "Information changed!" << endl;
-			cout << "----------------------------\n";
-			org.showEmpInfo(id);
-			cout << "Press 1 to return to Main menu: ";
-			int ch2;
-			cin >> ch2;
-			if (ch2 == 1)
+			else if (ch1 == 2)
+			{
+				org.removeEmployeeById(id);
+				cout << "Employee dismissed!\n";
+				cout << "----------------------------\n";
+				cout << "Press 1 to return to Main menu: ";
+				int ch2;
+				cin >> ch2;
+				if (ch2 == 1)
+				{
+					system("cls");
+					goto MainM;
+				}
+			}
+			else if (ch1 == 3)
 			{
 				system("cls");
 				goto MainM;
-			}			
+			}
 			system("pause");
 			break;
 		case 5:
